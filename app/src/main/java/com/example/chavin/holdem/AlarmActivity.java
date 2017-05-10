@@ -77,6 +77,10 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
                 //method that changes the status Textbox
                 set_alarm_text("Alarm set to:" + hour_string + ":" + minute_string);
 
+                //put in extra string into my intent
+                //tells the clock that you pressed the "alarm on" button
+                my_intent.putExtra("extra", "alarm on");
+
                 //create a pending intent to delay the intent until the specified calender time
                 pending_intent = PendingIntent.getBroadcast(AlarmActivity.this, 0, my_intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -100,6 +104,13 @@ public class AlarmActivity extends AppCompatActivity implements View.OnClickList
 
                 //cancel the alarm
                 alarm_manager.cancel(pending_intent);
+
+                //put extra string into my_intent
+                //tells the clock that you pressed the "alarm off" button
+                my_intent.putExtra("extra","alarm off");
+
+                //stop the ringtone
+                sendBroadcast(my_intent);
             }
         });
 
